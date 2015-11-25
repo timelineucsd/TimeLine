@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.software.timeline.R;
 
-public class TLTimeLogger extends Activity {
+public class TLTimeLoggerActiity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class TLTimeLogger extends Activity {
 
     private void initTimer()
     {
-        tvTimer = (TextView) findViewById(R.id.textViewTimer);
+        mTextViewTimer = (TextView) findViewById(R.id.textViewTimer);
     }
 
     private void updateTimerButton()
@@ -90,7 +90,7 @@ public class TLTimeLogger extends Activity {
 
     private void updateTimerText(String time)
     {
-        tvTimer.setText(time);
+        mTextViewTimer.setText(time);
     }
 
     private final Runnable mRunnable = new Runnable() {
@@ -113,7 +113,7 @@ public class TLTimeLogger extends Activity {
 
     private boolean mTimerRunning;
     private Button mButtonTimer;
-    private TextView tvTimer;
+    private TextView mTextViewTimer;
     private long mTimeElapsed;
     private Handler mHandler;
     private Spinner mSpinnerDropdown;

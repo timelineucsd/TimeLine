@@ -6,9 +6,8 @@ import android.app.Activity;
 import android.view.View;
 
 import com.software.timeline.R;
-import com.software.timeline.misc.TLApp;
 import com.software.timeline.signup.TLSignUpActivity;
-import com.software.timeline.timelogger.TLTimeLogger;
+import com.software.timeline.timelogger.TLTimeLoggerActiity;
 
 public class TimeLineActivity extends Activity {
 
@@ -20,7 +19,7 @@ public class TimeLineActivity extends Activity {
         //directly to time logger
 //        if (TLApp.isLoggedIn())
 //        {
-//            Intent intent = new Intent(this, TLTimeLogger.class);
+//            Intent intent = new Intent(this, TLTimeLoggerActiity.class);
 //            startActivity(intent);
 //            finish();
 //        }
@@ -34,7 +33,7 @@ public class TimeLineActivity extends Activity {
             case RESULT_CANCELED:
                 break;
             case RESULT_OK:
-                Intent intent = new Intent(this, TLTimeLogger.class);
+                Intent intent = new Intent(this, TLTimeLoggerActiity.class);
                 startActivity(intent);
                 finish();
                 break;

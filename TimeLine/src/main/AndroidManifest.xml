@@ -23,7 +23,7 @@
             android:label="@string/title_activity_tllogin" >
         </activity>
         <activity
-            android:name=".timelogger.TLTimeLogger"
+            android:name=".timelogger.TLTimeLoggerActiity"
             android:label="@string/title_activity_tltime_logger" >
         </activity>
         <activity
