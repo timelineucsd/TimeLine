@@ -4,4 +4,6 @@
     <string name="title_activity_tltime_logger">TimeLine</string>
     <string name="title_activity_tllogin">TimeLine</string>
     <string name="title_activity_time_line">TimeLine</string>
+    <string name="title_activity_tlsign_up">TimeLine</string>
+    <string name="title_activity_tljob_info">TLJobInfoActivity</string>
 </resources>

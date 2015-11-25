@@ -26,6 +26,14 @@
             android:name=".timelogger.TLTimeLogger"
             android:label="@string/title_activity_tltime_logger" >
         </activity>
+        <activity
+            android:name=".signup.TLSignUpActivity"
+            android:label="@string/title_activity_tlsign_up" >
+        </activity>
+        <activity
+            android:name=".signup.TLJobInfoActivity"
+            android:label="@string/title_activity_tljob_info" >
+        </activity>
     </application>
 
 </manifest>
