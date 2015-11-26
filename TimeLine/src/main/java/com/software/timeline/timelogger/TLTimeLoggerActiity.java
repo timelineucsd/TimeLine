@@ -107,8 +107,12 @@ public class TLTimeLoggerActiity extends Activity {
     };
 
     @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
+    public void onBackPressed()
+    {
+        if (mTimerRunning)
+            moveTaskToBack(true);
+        else
+            super.onBackPressed();
     }
 
     private boolean mTimerRunning;

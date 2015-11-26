@@ -20,21 +20,6 @@ public class TLJobInfoActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_info);
-        initComponents();
-    }
-
-    private void initComponents()
-    {
-        initSpinner();
-    }
-
-    private void initSpinner()
-    {
-        mSpinnerJobPercent = (Spinner) findViewById(R.id.spinnerJobPercent);
-        String[] items = new String[]{"25%", "50%"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        mSpinnerJobPercent.setAdapter(adapter);
-
     }
 
     private void signUpCompleted()
@@ -47,6 +32,4 @@ public class TLJobInfoActivity extends Activity
     {
         signUpCompleted();
     }
-
-    private Spinner mSpinnerJobPercent;
 }
