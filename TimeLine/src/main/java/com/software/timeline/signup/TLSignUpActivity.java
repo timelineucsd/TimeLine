@@ -35,6 +35,7 @@ public class TLSignUpActivity extends Activity {
 
     private void initComponents()
     {
+        mUserQuery = new ParseQuery<ParseObject>("UserInfo");
         initSpinner();
     }
 
