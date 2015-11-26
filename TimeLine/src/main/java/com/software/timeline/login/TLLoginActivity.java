@@ -7,7 +7,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.software.timeline.R;
+
+import java.util.List;
 
 public class TLLoginActivity extends Activity {
 
@@ -29,9 +35,36 @@ public class TLLoginActivity extends Activity {
         }
         else
         {
-            setResult(RESULT_OK);
-            finish();
+            loginIfUserExists(name, PID);
         }
     }
 
+    private void loginIfUserExists(final String name, final String pid)
+    {
+        ParseQuery<ParseObject> mUserQuery = new ParseQuery<ParseObject>("userinfo");
+        mUserQuery.fromLocalDatastore();
+        mUserQuery.whereEqualTo("pid", pid);
+        mUserQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e)
+            {
+                if (!isFinishing())
+                {
+                    boolean isFound = false;
+                    for (int i=0; i < objects.size(); i++)
+                    {
+                        if(pid.equals(objects.get(i).getString("pid")) && name.equals(objects.get(i).getString("name")))
+                        {
+                            isFound = true;
+                            setResult(RESULT_OK);
+                            TLLoginActivity.this.finish();
+                            break;
+                        }
+                    }
+                    if (!isFound)
+                        Toast.makeText(TLLoginActivity.this, "User not found", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 }

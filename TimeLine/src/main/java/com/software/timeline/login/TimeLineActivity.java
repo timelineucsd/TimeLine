@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.view.View;
 
 import com.software.timeline.R;
+import com.software.timeline.misc.TLApp;
 import com.software.timeline.signup.TLSignUpActivity;
 import com.software.timeline.timelogger.TLTimeLoggerActiity;
 
@@ -15,14 +16,17 @@ public class TimeLineActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.time_line);
-        //Uncomment this is you want to skip the login step and go
-        //directly to time logger
-//        if (TLApp.isLoggedIn())
-//        {
-//            Intent intent = new Intent(this, TLTimeLoggerActiity.class);
-//            startActivity(intent);
-//            finish();
-//        }
+        if (isLoggedIn())
+        {
+            Intent intent = new Intent(this, TLTimeLoggerActiity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    private boolean isLoggedIn()
+    {
+        return getSharedPreferences(TLApp.USER_SHARED_PREFS, MODE_PRIVATE).getString("name", null) != null;
     }
 
     @Override

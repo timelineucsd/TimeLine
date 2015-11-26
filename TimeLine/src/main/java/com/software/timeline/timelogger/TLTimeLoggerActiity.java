@@ -1,103 +1,149 @@
 package com.software.timeline.timelogger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.software.timeline.R;
+import com.software.timeline.login.TimeLineActivity;
+import com.software.timeline.misc.TLApp;
+import com.software.timeline.notifications.TLNotificationsActivity;
+import com.software.timeline.signup.TLSignUpActivity;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class TLTimeLoggerActiity extends Activity {
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.time_logger);
+        if (TLApp.alert==1){
+            System.out.println("fired fetching");
+            TLApp.alert=0;
+            TLApp.getActivities(pid);
+        }
         initComponents();
     }
 
-    private void initComponents()
-    {
+    private void initComponents() {
         mHandler = new Handler();
         initSpinner();
         initTimer();
         updateTimerButton();
     }
 
-    private void initTimer()
-    {
+    private void initTimer() {
         mTextViewTimer = (TextView) findViewById(R.id.textViewTimer);
     }
 
-    private void updateTimerButton()
-    {
+    private void updateTimerButton() {
         if (mButtonTimer == null)
             mButtonTimer = (Button) findViewById(R.id.buttonTimer);
-        if (!isTimerRunning())
-        {
+        if (!isTimerRunning()) {
             mButtonTimer.setText("Start");
-        }
-        else
+            System.out.println("Start printed");
+        } else {
             mButtonTimer.setText("Stop");
+            System.out.println("Stop printed");
+        }
     }
 
-    public void buttonTimerClicked(View view)
-    {
-        if (!isTimerRunning())
-        {
+    public void buttonTimerClicked(View view) {
+        if (!isTimerRunning()) {
             setTimerRunning(true);
             mTimeElapsed = System.currentTimeMillis();
+            start_time = mTimeElapsed;
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+            Calendar dt = Calendar.getInstance();
+            dt.clear();
+            dt.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
+            day = "" + dt.getTime();
+            System.out.println("Date: " + day);
             mHandler.postDelayed(mRunnable, 1000L);
             mSpinnerDropdown.setEnabled(false);
-        }
-        else
-        {
+        } else {
+            end_time = System.currentTimeMillis();
             setTimerRunning(false);
             resetTimer();
-            mSpinnerDropdown.setEnabled(true);
+            System.out.println("start time: " + start_time);
+            System.out.println("end time: " + end_time);
+            System.out.println("Button updated");
+            TLApp.addTimeLog(pid, aid, start_time, end_time, day);
         }
         updateTimerButton();
     }
-
-    private void resetTimer()
-    {
+    private void resetTimer() {
         mHandler.removeCallbacks(mRunnable);
         mTimeElapsed = 0;
+        mSpinnerDropdown.setEnabled(true);
         updateTimerText("00 : 00 : 00");
     }
 
-    private void initSpinner()
-    {
-        mSpinnerDropdown = (Spinner)findViewById(R.id.spinnerActivities);
-        String[] items = new String[]{"Piazza", "Class", "Email", "Discussion"};
+    private void initSpinner() {
+        mSpinnerDropdown = (Spinner) findViewById(R.id.spinnerActivities);
+        String[] items = new String[]{"Piazza", "Lab Hours", "Office Hours", "Grading", "Discussion Hours", "Email Replies", "Lecture Hours"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
         mSpinnerDropdown.setAdapter(adapter);
+
+        mSpinnerDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+                aid = pos + 1;
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
     }
 
-    public void setTimerRunning(boolean timerRunning)
-    {
+    public void buttonEditScheduleClicked(View view) {
+        Intent intent = new Intent(this, TimeLineActivity.class);
+        startActivity(intent);
+    }
+
+    public void buttonGraphicalSummaryClicked(View view) {
+        Intent intent = new Intent(this, TLSignUpActivity.class);
+        startActivity(intent);
+    }
+
+    public void buttonAlertClicked(View view) {
+        Intent intent = new Intent(this, TLNotificationsActivity.class);
+        startActivity(intent);
+    }
+
+    public void setTimerRunning(boolean timerRunning) {
         mTimerRunning = timerRunning;
+        System.out.println("mTimer in starttimer: "+mTimerRunning);
     }
 
-    public boolean isTimerRunning()
-    {
+    public boolean isTimerRunning() {
+        System.out.println("mTimer in timer running: " + mTimerRunning);
         return mTimerRunning;
     }
 
-    private void updateTimerText(String time)
-    {
+    private void updateTimerText(String time) {
         mTextViewTimer.setText(time);
     }
 
     private final Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
-            if (isTimerRunning())
-            {
+            if (isTimerRunning()) {
                 long seconds = (System.currentTimeMillis() - mTimeElapsed) / 1000;
                 updateTimerText(String.format("%02d : %02d : %02d", seconds / 3600, seconds / 60, seconds % 60));
                 mHandler.postDelayed(mRunnable, 1000L);
@@ -118,7 +164,13 @@ public class TLTimeLoggerActiity extends Activity {
     private boolean mTimerRunning;
     private Button mButtonTimer;
     private TextView mTextViewTimer;
-    private long mTimeElapsed;
     private Handler mHandler;
     private Spinner mSpinnerDropdown;
+    private long mTimeElapsed;
+    private long start_time;
+    private long end_time;
+    private int aid;
+    private String day;
+    private String pid="A53093508";
+
 }
