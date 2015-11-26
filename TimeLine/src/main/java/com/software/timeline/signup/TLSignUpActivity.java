@@ -1,20 +1,28 @@
 package com.software.timeline.signup;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.SaveCallback;
 import com.software.timeline.R;
 import com.software.timeline.database.TLParseDatabase;
+import com.software.timeline.misc.TLApp;
+
+import java.util.List;
 
 public class TLSignUpActivity extends Activity {
 
@@ -27,7 +35,6 @@ public class TLSignUpActivity extends Activity {
 
     private void initComponents()
     {
-        mUserQuery = TLUser.getQuery();
         initSpinner();
     }
 
@@ -55,26 +62,50 @@ public class TLSignUpActivity extends Activity {
         {
             mUserQuery.fromLocalDatastore();
             mUserQuery.whereEqualTo("pid", PID);
-            mUserQuery.getFirstInBackground(new GetCallback<TLUser>() {
+            mUserQuery.findInBackground(new FindCallback<ParseObject>() {
                 @Override
-                public void done(TLUser object, ParseException e)
-                {
-                    if(!isFinishing())
-                    {
-                        if (object == null && e.getCode() == ParseException.OBJECT_NOT_FOUND)
-                        {
-                            TLParseDatabase.getHandler().addNewUser(name, PID, email, mSpinnerJobPercent.getSelectedItem().toString());
-                            setResult(RESULT_OK);
-                            finish();
-                        }
-                        else
+                public void done(List<ParseObject> objects, ParseException e) {
+                    if (!isFinishing()) {
+                        if (objects.size() == 0 || e.getCode() == ParseException.OBJECT_NOT_FOUND) {
+                            addNewUser(name, PID, email, mSpinnerJobPercent.getSelectedItem().toString());
+                        } else
                             Toast.makeText(TLSignUpActivity.this, "User already exists", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
-            setResult(RESULT_OK);
-            finish();
         }
+    }
+
+    public void addNewUser(final String name, final String PID, final String email, final String taType)
+    {
+        ParseObject object = new ParseObject("UserInfo");
+        object.put("name", name);
+        object.put("pid", PID);
+        object.put("email", email);
+        object.put("tatype", taType);
+        object.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e)
+            {
+                if (e == null)
+                {
+                    Log.d("Prateek:", "Save successful");
+                    addUserToSharedPrefs(name, PID, email, taType);
+                    setResult(RESULT_OK);
+                    finish();
+                }
+            }
+        });
+    }
+
+    private void addUserToSharedPrefs(String name, String pid, String email, String taType)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(TLApp.USER_SHARED_PREFS, MODE_PRIVATE).edit();
+        editor.putString("name", name);
+        editor.putString("pid", pid);
+        editor.putString("email", email);
+        editor.putString("tatype", taType);
+        editor.commit();
     }
 
     @Override
@@ -90,5 +121,5 @@ public class TLSignUpActivity extends Activity {
     }
 
     private Spinner mSpinnerJobPercent;
-    ParseQuery<TLUser> mUserQuery;
+    ParseQuery<ParseObject> mUserQuery;
 }
