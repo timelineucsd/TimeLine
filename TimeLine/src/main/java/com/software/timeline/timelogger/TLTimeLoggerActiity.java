@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,6 +40,31 @@ public class TLTimeLoggerActiity extends Activity {
             TLApp.getActivities(pid);
         }
         initComponents();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.timelogger_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId())
+        {
+            case R.id.menuLogout:
+                logoutUser();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logoutUser()
+    {
+        getSharedPreferences(TLApp.USER_SHARED_PREFS, MODE_PRIVATE).edit().clear().commit();
+        Intent intent  = new Intent(this, TimeLineActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void initComponents() {
