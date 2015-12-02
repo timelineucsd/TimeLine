@@ -142,16 +142,19 @@ public class TLTimeLoggerActiity extends Activity {
     public void buttonEditScheduleClicked(View view) {
         Intent intent = new Intent(this, TimeLineActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void buttonGraphicalSummaryClicked(View view) {
         Intent intent = new Intent(this, TLSignUpActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void buttonAlertClicked(View view) {
         Intent intent = new Intent(this, TLNotificationsActivity.class);
         startActivity(intent);
+        finish();
     }
 
     public void setTimerRunning(boolean timerRunning) {

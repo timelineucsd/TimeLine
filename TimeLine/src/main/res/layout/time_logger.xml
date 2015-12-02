@@ -25,25 +25,31 @@
         android:layout_marginTop="30dp"
         android:text="Graphical Summary"
         android:onClick="buttonGraphicalSummaryClicked"/>
-
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Activity"
-        android:id="@+id/textViewSelectActivity"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="52dp" />
+        android:layout_below="@id/buttonEditSchedule"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Activity"
+            android:id="@+id/textViewSelectActivity"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerActivities"
-        android:layout_below="@+id/textViewSelectActivity"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:spinnerMode="dropdown"/>
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerActivities"
+            android:spinnerMode="dropdown"
+            android:layout_below="@+id/buttonEditSchedule"
+            android:layout_marginTop="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"

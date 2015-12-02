@@ -1,5 +1,6 @@
 package com.software.timeline.login;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.software.timeline.R;
+import com.software.timeline.misc.TLApp;
 
 import java.util.List;
 
@@ -39,6 +41,16 @@ public class TLLoginActivity extends Activity {
         }
     }
 
+    private void addUserToSharedPrefs(String name, String pid, String email, String taType)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(TLApp.USER_SHARED_PREFS, MODE_PRIVATE).edit();
+        editor.putString("name", name);
+        editor.putString("pid", pid);
+        editor.putString("email", email);
+        editor.putString("tatype", taType);
+        editor.commit();
+    }
+
     private void loginIfUserExists(final String name, final String pid)
     {
         ParseQuery<ParseObject> mUserQuery = new ParseQuery<ParseObject>("UserInfo");
@@ -56,6 +68,7 @@ public class TLLoginActivity extends Activity {
                         {
                             isFound = true;
                             setResult(RESULT_OK);
+                            addUserToSharedPrefs(name, pid, objects.get(i).getString("email"), objects.get(i).getString("tatype"));
                             TLLoginActivity.this.finish();
                             break;
                         }

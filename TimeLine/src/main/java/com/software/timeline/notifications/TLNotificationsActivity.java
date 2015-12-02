@@ -3,6 +3,7 @@ package com.software.timeline.notifications;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 
 import com.software.timeline.R;
 import com.software.timeline.misc.TLApp;
@@ -14,11 +15,9 @@ public class TLNotificationsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.time_logger);
-        System.out.println("entered notifications");
+        Log.d("Prateek:", "entered notifications");
         TLApp.alert=1;
         TLApp.aid=1;
         TLApp.aid_count=1;
-        Intent intent = new Intent(this, TLTimeLoggerActiity.class);
-        startActivity(intent);
     }
 }
