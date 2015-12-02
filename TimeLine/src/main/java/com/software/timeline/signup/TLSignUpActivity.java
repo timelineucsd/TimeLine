@@ -61,7 +61,6 @@ public class TLSignUpActivity extends Activity {
         }
         else
         {
-            mUserQuery.fromLocalDatastore();
             mUserQuery.whereEqualTo("pid", PID);
             mUserQuery.findInBackground(new FindCallback<ParseObject>() {
                 @Override

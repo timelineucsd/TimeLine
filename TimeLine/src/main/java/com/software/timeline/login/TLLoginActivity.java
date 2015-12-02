@@ -42,7 +42,6 @@ public class TLLoginActivity extends Activity {
     private void loginIfUserExists(final String name, final String pid)
     {
         ParseQuery<ParseObject> mUserQuery = new ParseQuery<ParseObject>("UserInfo");
-        mUserQuery.fromLocalDatastore();
         mUserQuery.whereEqualTo("pid", pid);
         mUserQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
