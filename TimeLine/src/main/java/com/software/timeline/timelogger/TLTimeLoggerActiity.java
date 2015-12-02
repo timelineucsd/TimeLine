@@ -18,6 +18,7 @@ import com.software.timeline.R;
 import com.software.timeline.login.TimeLineActivity;
 import com.software.timeline.misc.TLApp;
 import com.software.timeline.notifications.TLNotificationsActivity;
+import com.software.timeline.signup.TLJobActivities;
 import com.software.timeline.signup.TLSignUpActivity;
 
 import java.util.Calendar;
@@ -124,8 +125,7 @@ public class TLTimeLoggerActiity extends Activity {
 
     private void initSpinner() {
         mSpinnerDropdown = (Spinner) findViewById(R.id.spinnerActivities);
-        String[] items = new String[]{"Piazza", "Lab Hours", "Office Hours", "Grading", "Discussion Hours", "Email Replies", "Lecture Hours"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, TLJobActivities.getActivities());
         mSpinnerDropdown.setAdapter(adapter);
 
         mSpinnerDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

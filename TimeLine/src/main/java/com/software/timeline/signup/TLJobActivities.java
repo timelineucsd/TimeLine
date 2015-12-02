@@ -38,7 +38,14 @@ public class TLJobActivities
     {
         mJobName = jobName;
     }
+
+    public static String[] getActivities()
+    {
+        return items;
+    }
     private String mJobName;
     private int mJobId;
     private boolean mIsSelected;
+    private static String[] items = new String[]{"Piazza", "Lab Hours", "Office Hours", "Grading", "Discussion Hours", "Email Replies", "Lecture Hours"};
+
 }
