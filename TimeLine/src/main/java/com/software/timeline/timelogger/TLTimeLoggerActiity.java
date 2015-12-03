@@ -161,12 +161,14 @@ public class TLTimeLoggerActiity extends Activity {
     }
 
     public void buttonAlertClicked(View view) {
-//        Intent intent = new Intent(this, TLConfirmationReceiver.class);
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
-//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-//        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
-//                + (2 * 1000), pendingIntent);
-        sendWarningNotification("You are about to exceed your job limit");
+        Intent intent = new Intent(this, TLConfirmationReceiver.class);
+        intent.putExtra("classNow", true);
+        intent.putExtra("activity", "Class");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
+                + (2 * 1000), pendingIntent);
+//        sendWarningNotification("You are about to exceed your job limit");
     }
 
     private void sendWarningNotification(String s)

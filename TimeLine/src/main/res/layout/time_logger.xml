@@ -82,4 +82,14 @@
         android:layout_marginBottom="141dp"
         android:onClick="buttonAlertClicked" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fire Notification"
+        android:id="@+id/buttonConfirmation"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="141dp"
+        android:onClick="buttonAlertClicked" />
+
 </RelativeLayout>

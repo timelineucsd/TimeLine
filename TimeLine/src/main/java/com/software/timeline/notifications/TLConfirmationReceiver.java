@@ -22,10 +22,21 @@ public class TLConfirmationReceiver extends BroadcastReceiver {
         // an Intent broadcast.
         boolean now = intent.getBooleanExtra("classNow", false);
         String activityName = intent.getStringExtra("activity");
-        if (now)
-            sendConfirmationNotification(activityName, context);
+        if (intent.hasExtra("classNow")) {
+            if (now)
+                sendConfirmationNotification(activityName, context);
+            else
+                sendReminder(activityName, context);
+        }
         else
-            sendReminder(activityName, context);
+        {
+            NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.cancel(3);
+            Intent activityIntent = new Intent(context, TLNotificationsActivity.class);
+            activityIntent.putExtra("attending", intent.getBooleanExtra("attending", false));
+            activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(activityIntent);
+        }
     }
 
     private void sendReminder(String activityName, Context context)
@@ -34,20 +45,20 @@ public class TLConfirmationReceiver extends BroadcastReceiver {
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("TimeLine")
-                        .setContentText("You have to attend" + activityName + "in 30 minutes");
-
+                        .setContentText("You have to attend" + activityName + "in 30 minutes")
+                        .setAutoCancel(true);
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(2, mBuilder.build());
     }
 
     private void sendConfirmationNotification(String activityName, Context context)
     {
-        Intent intentYes = new Intent(context, TLTimeLoggerActiity.class);
-        intentYes.putExtra("attedning", true);
-        Intent intentNo = new Intent(context, TLTimeLoggerActiity.class);
+        Intent intentYes = new Intent(context, TLConfirmationReceiver.class);
+        intentYes.putExtra("attending", true);
+        Intent intentNo = new Intent(context, TLConfirmationReceiver.class);
         intentNo.putExtra("attending", false);
         PendingIntent pYes = PendingIntent.getBroadcast(context, 100, intentYes, PendingIntent.FLAG_CANCEL_CURRENT);
-        PendingIntent pNo = PendingIntent.getBroadcast(context, 100, intentNo, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pNo = PendingIntent.getBroadcast(context, 101, intentNo, PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.mipmap.ic_launcher)
