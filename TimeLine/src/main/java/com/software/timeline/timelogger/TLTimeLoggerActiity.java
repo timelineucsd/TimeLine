@@ -47,6 +47,8 @@ public class TLTimeLoggerActiity extends Activity {
             TLApp.alert=0;
             TLApp.getActivities(pid);
         }
+        Intent intent = new Intent(this, TLTimeLoggerService.class);
+        startService(intent);
         initComponents();
     }
 
