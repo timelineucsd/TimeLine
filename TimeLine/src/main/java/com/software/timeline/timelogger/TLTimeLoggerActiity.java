@@ -1,9 +1,14 @@
 package com.software.timeline.timelogger;
 
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,11 +22,13 @@ import android.widget.TextView;
 import com.software.timeline.R;
 import com.software.timeline.login.TimeLineActivity;
 import com.software.timeline.misc.TLApp;
+import com.software.timeline.notifications.TLConfirmationReceiver;
 import com.software.timeline.notifications.TLNotificationsActivity;
 import com.software.timeline.signup.TLJobActivities;
 import com.software.timeline.signup.TLSignUpActivity;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 public class TLTimeLoggerActiity extends Activity {
@@ -101,7 +108,7 @@ public class TLTimeLoggerActiity extends Activity {
             Calendar dt = Calendar.getInstance();
             dt.clear();
             dt.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
-            day = "" + dt.getTime();
+            day = dt.getTime();
             System.out.println("Date: " + day);
             mHandler.postDelayed(mRunnable, 1000L);
             mSpinnerDropdown.setEnabled(false);
@@ -152,9 +159,24 @@ public class TLTimeLoggerActiity extends Activity {
     }
 
     public void buttonAlertClicked(View view) {
-        Intent intent = new Intent(this, TLNotificationsActivity.class);
-        startActivity(intent);
-        finish();
+//        Intent intent = new Intent(this, TLConfirmationReceiver.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
+//                + (2 * 1000), pendingIntent);
+        sendWarningNotification("You are about to exceed your job limit");
+    }
+
+    private void sendWarningNotification(String s)
+    {
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle("Time Logger")
+                        .setContentText(s);
+
+        NotificationManager mNotificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(1, mBuilder.build());
     }
 
     public void setTimerRunning(boolean timerRunning) {
@@ -201,7 +223,7 @@ public class TLTimeLoggerActiity extends Activity {
     private long start_time;
     private long end_time;
     private int aid;
-    private String day;
+    private Date day;
     private String pid="A53093508";
 
 }

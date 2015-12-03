@@ -41,6 +41,18 @@
             android:name=".notifications.TLNotificationsActivity"
             android:label="@string/title_activity_tlnotifications" >
         </activity>
+
+        <service
+            android:name=".timelogger.TLTimeLoggerService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
+        <receiver
+            android:name=".notifications.TLConfirmationReceiver"
+            android:enabled="true"
+            android:exported="true" >
+        </receiver>
     </application>
 
 </manifest>
