@@ -85,11 +85,21 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fire Notification"
+        android:text="Activity Confirmation"
         android:id="@+id/buttonConfirmation"
-        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@id/buttonAlert"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="141dp"
-        android:onClick="buttonAlertClicked" />
+        android:layout_marginTop="50dp"
+        android:onClick="buttonActivityConfirmationClicked" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Activity Reminder"
+        android:id="@+id/buttonReminder"
+        android:layout_alignTop="@id/buttonConfirmation"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="50dp"
+        android:onClick="buttonActivityReminderClicked" />
 
 </RelativeLayout>

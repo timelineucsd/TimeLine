@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.software.timeline.R;
 import com.software.timeline.timelogger.TLTimeLoggerActiity;
@@ -20,8 +21,9 @@ public class TLConfirmationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
-        boolean now = intent.getBooleanExtra("classNow", false);
+        boolean now = intent.getExtras().getBoolean("classNow");
         String activityName = intent.getStringExtra("activity");
+        Log.d("Prateek", intent.hasExtra("classNow") + "");
         if (intent.hasExtra("classNow")) {
             if (now)
                 sendConfirmationNotification(activityName, context);

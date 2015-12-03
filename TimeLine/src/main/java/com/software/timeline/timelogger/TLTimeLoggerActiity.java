@@ -160,15 +160,31 @@ public class TLTimeLoggerActiity extends Activity {
         finish();
     }
 
-    public void buttonAlertClicked(View view) {
+    public void buttonAlertClicked(View view)
+    {
+        sendWarningNotification("You are about to exceed your job limit");
+    }
+
+    public void buttonActivityReminderClicked(View view)
+    {
+        Intent intent = new Intent(this, TLConfirmationReceiver.class);
+        intent.putExtra("classNow", false);
+        intent.putExtra("activity", "Class");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
+                + (1 * 1000), pendingIntent);
+    }
+
+    public void buttonActivityConfirmationClicked(View view)
+    {
         Intent intent = new Intent(this, TLConfirmationReceiver.class);
         intent.putExtra("classNow", true);
         intent.putExtra("activity", "Class");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
-                + (2 * 1000), pendingIntent);
-//        sendWarningNotification("You are about to exceed your job limit");
+                + (1 * 1000), pendingIntent);
     }
 
     private void sendWarningNotification(String s)
