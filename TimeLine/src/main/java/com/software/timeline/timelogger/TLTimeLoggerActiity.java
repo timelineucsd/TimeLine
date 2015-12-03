@@ -46,6 +46,7 @@ public class TLTimeLoggerActiity extends Activity {
             System.out.println("fired fetching");
             TLApp.alert=0;
             TLApp.getActivities(pid);
+            finish();
         }
         Intent intent = new Intent(this, TLTimeLoggerService.class);
         startService(intent);
@@ -181,7 +182,7 @@ public class TLTimeLoggerActiity extends Activity {
         Intent intent = new Intent(this, TLConfirmationReceiver.class);
         intent.putExtra("classNow", true);
         intent.putExtra("activity", "Class");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 2343243, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
                 + (1 * 1000), pendingIntent);

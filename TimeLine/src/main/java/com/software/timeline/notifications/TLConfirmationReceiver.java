@@ -11,7 +11,6 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.software.timeline.R;
-import com.software.timeline.timelogger.TLTimeLoggerActiity;
 
 public class TLConfirmationReceiver extends BroadcastReceiver {
     public TLConfirmationReceiver() {
@@ -23,8 +22,9 @@ public class TLConfirmationReceiver extends BroadcastReceiver {
         // an Intent broadcast.
         boolean now = intent.getExtras().getBoolean("classNow");
         String activityName = intent.getStringExtra("activity");
-        Log.d("Prateek", intent.hasExtra("classNow") + "");
-        if (intent.hasExtra("classNow")) {
+        Log.d("Prateek", "now=" + now);
+        if (intent.hasExtra("classNow"))
+        {
             if (now)
                 sendConfirmationNotification(activityName, context);
             else
@@ -47,7 +47,7 @@ public class TLConfirmationReceiver extends BroadcastReceiver {
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("TimeLine")
-                        .setContentText("You have to attend" + activityName + "in 30 minutes")
+                        .setContentText("You have to attend " + activityName + " in 30 minutes")
                         .setAutoCancel(true);
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(2, mBuilder.build());
