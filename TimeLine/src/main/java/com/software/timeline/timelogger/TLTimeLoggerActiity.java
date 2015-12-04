@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.software.timeline.R;
+import com.software.timeline.graphicalsummary.TLGraphicalSummary;
 import com.software.timeline.login.TimeLineActivity;
 import com.software.timeline.misc.TLApp;
 import com.software.timeline.notifications.TLConfirmationReceiver;
@@ -156,9 +157,8 @@ public class TLTimeLoggerActiity extends Activity {
     }
 
     public void buttonGraphicalSummaryClicked(View view) {
-        Intent intent = new Intent(this, TLSignUpActivity.class);
+        Intent intent = new Intent(this, TLGraphicalSummary.class);
         startActivity(intent);
-        finish();
     }
 
     public void buttonAlertClicked(View view)

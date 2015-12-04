@@ -53,6 +53,11 @@
             android:enabled="true"
             android:exported="true" >
         </receiver>
+
+        <activity
+            android:name=".graphicalsummary.TLGraphicalSummary"
+            android:label="@string/title_activity_tlgraphical_summary" >
+        </activity>
     </application>
 
 </manifest>
