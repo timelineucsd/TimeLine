@@ -8,4 +8,5 @@
     <string name="title_activity_tljob_info">TLJobInfoActivity</string>
     <string name="title_activity_tlnotifications">TimeLine</string>
     <string name="title_activity_tlgraphical_summary">TimeLine</string>
+    <string name="title_activity_tlsplash">TimeLine</string>
 </resources>

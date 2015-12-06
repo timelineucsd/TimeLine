@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.software.timeline" >
+    package="com.software.timeline" android:icon="@mipmap/splash_screen">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -8,18 +8,23 @@
     <application
         android:name=".misc.TLApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/splash_screen"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/TimeLineTheme" >
         <activity
-            android:name=".login.TimeLineActivity"
-            android:label="@string/title_activity_time_line" >
+            android:name=".misc.TLSplashActivity"
+            android:label="TimeLine"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".login.TimeLineActivity"
+            android:label="@string/title_activity_tllogin" >
         </activity>
         <activity
             android:name=".login.TLLoginActivity"
@@ -41,22 +46,9 @@
             android:name=".notifications.TLNotificationsActivity"
             android:label="@string/title_activity_tlnotifications" >
         </activity>
-
-        <service
-            android:name=".timelogger.TLTimeLoggerService"
-            android:enabled="true"
-            android:exported="true" >
-        </service>
-
-        <receiver
-            android:name=".notifications.TLConfirmationReceiver"
-            android:enabled="true"
-            android:exported="true" >
-        </receiver>
-
         <activity
             android:name=".graphicalsummary.TLGraphicalSummary"
-            android:label="@string/title_activity_tlgraphical_summary" >
+            android:label="@string/title_activity_tlnotifications" >
         </activity>
     </application>
 
