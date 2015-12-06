@@ -55,6 +55,13 @@ public class TLTimeLoggerService extends Service {
             public void done(List<ParseObject> objects, com.parse.ParseException e) {
                 if (e == null) {
                     System.out.println("Objects retrieved: " + objects.size());
+                    aid_1 = 0;
+                    aid_2 = 0;
+                    aid_3 = 0;
+                    aid_4 = 0;
+                    aid_5 = 0;
+                    aid_6 = 0;
+                    aid_7 = 0;
                     for (int i = 0; i < objects.size(); i++) {
 
                         System.out.println("inside for");
@@ -109,8 +116,8 @@ public class TLTimeLoggerService extends Service {
                         warningTime = 18 * 1000;
                         notificationTime = 20 * 1000;
                     }
-
-                    if ((aid_1 + aid_2 + aid_3 + aid_4 + aid_5 + aid_6 + aid_7) > (notificationTime))    //exceeding 8 hours
+                    Log.d("Prateek", "Time Passed:" + (aid_1 + aid_2 + aid_3 + aid_4 + aid_5 + aid_6 + aid_7) );
+                    if ((aid_1 + aid_2 + aid_3 + aid_4 + aid_5 + aid_6 + aid_7) > (notificationTime))
                     {
                         boolean notified = preferences.getBoolean("overtimeNotified", false);
                         if (!notified)
@@ -119,7 +126,7 @@ public class TLTimeLoggerService extends Service {
                         editor.putBoolean("overtimeNotified", true);
                         editor.commit();
                     }
-                    else if ((aid_1 + aid_2 + aid_3 + aid_4 + aid_5 + aid_6 + aid_7) > (warningTime))    //exceeding 8 hours
+                    else if ((aid_1 + aid_2 + aid_3 + aid_4 + aid_5 + aid_6 + aid_7) > (warningTime))
                     {
                         boolean notified = preferences.getBoolean("warningNotified", false);
                         if (!notified)
