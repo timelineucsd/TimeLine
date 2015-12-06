@@ -45,7 +45,7 @@ public class TLApp extends Application
         object.put("activityId", AID);
         object.put("startTime", startTime);
         object.put("endTime", endTime);
-        object.put("day", day);
+        object.put("Day", day);
         object.saveInBackground(new SaveCallback() {
             @Override
             public void done(com.parse.ParseException e) {
@@ -81,7 +81,7 @@ public class TLApp extends Application
                             System.out.println("conditions matched");
                             start_time=objects.get(i).getInt("startTime");
                             end_time=objects.get(i).getInt("endTime");
-                            day=objects.get(i).getDate("day");
+                            day=objects.get(i).getDate("Day");
                             System.out.println("Object startTime: " + start_time + " end time: " + end_time + " day: " + day);
                             addTimeLog(PID,aid,start_time,end_time,day);
                             break;

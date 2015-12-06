@@ -75,7 +75,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fire Notification"
+        android:text="Overtime Alert"
         android:id="@+id/buttonAlert"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

@@ -1,5 +1,6 @@
 package com.software.timeline.notifications;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -20,7 +21,6 @@ public class TLConfirmationReceiver extends BroadcastReceiver {
         // an Intent broadcast.
         boolean now = intent.getExtras().getBoolean("classNow");
         String activityName = intent.getStringExtra("activity");
-        Log.d("Prateek", "now=" + now);
         if (intent.hasExtra("classNow"))
         {
             if (now)
@@ -43,10 +43,11 @@ public class TLConfirmationReceiver extends BroadcastReceiver {
     {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.mipmap.splash_screen)
                         .setContentTitle("TimeLine")
                         .setContentText("You have to attend " + activityName + " in 30 minutes")
-                        .setAutoCancel(true);
+                        .setAutoCancel(true)
+                        .setDefaults(Notification.DEFAULT_SOUND);
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(2, mBuilder.build());
     }
@@ -61,11 +62,12 @@ public class TLConfirmationReceiver extends BroadcastReceiver {
         PendingIntent pNo = PendingIntent.getBroadcast(context, 101, intentNo, PendingIntent.FLAG_CANCEL_CURRENT);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.mipmap.splash_screen)
                         .setContentTitle("TimeLine")
-                        .setContentText("Are you attending" + activityName + "?")
+                        .setContentText("Are you attending " + activityName + "?")
                         .addAction(0, "Yes", pYes)
-                        .addAction(0, "No", pNo);
+                        .addAction(0, "No", pNo)
+                        .setDefaults(Notification.DEFAULT_SOUND);
 
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(3, mBuilder.build());

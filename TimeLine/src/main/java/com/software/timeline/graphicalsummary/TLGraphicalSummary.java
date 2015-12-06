@@ -296,8 +296,8 @@ class GraphXLabelFormat extends Format {
     }
 
     @Override
-    public Object parseObject(String arg0, ParsePosition arg1) {
-
-        return java.util.Arrays.asList(xLabels).indexOf(arg0);
+    public Object parseObject(String arg0, ParsePosition arg1)
+    {
+            return java.util.Arrays.asList(xLabels).indexOf(arg0);
     }
 }

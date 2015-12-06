@@ -1,12 +1,14 @@
 package com.software.timeline.timelogger;
 
+import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.app.Activity;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.view.Menu;
@@ -39,6 +41,11 @@ public class TLTimeLoggerActiity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences shared = getSharedPreferences(TLApp.USER_SHARED_PREFS, MODE_PRIVATE);
+        pid = (shared.getString("pid", ""));
+        System.out.println("PID: " + pid);
+
         setContentView(R.layout.time_logger);
         if (TLApp.alert==1){
             System.out.println("fired fetching");
@@ -46,6 +53,7 @@ public class TLTimeLoggerActiity extends Activity {
             TLApp.getActivities(pid);
             finish();
         }
+
         Intent intent = new Intent(this, TLTimeLoggerService.class);
         startService(intent);
         initComponents();
@@ -124,6 +132,7 @@ public class TLTimeLoggerActiity extends Activity {
         }
         updateTimerButton();
     }
+
     private void resetTimer() {
         mHandler.removeCallbacks(mRunnable);
         mTimeElapsed = 0;
@@ -171,7 +180,7 @@ public class TLTimeLoggerActiity extends Activity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
-                + (1 * 1000), pendingIntent);
+                + (1 * 100), pendingIntent);
     }
 
     public void buttonActivityConfirmationClicked(View view)
@@ -182,16 +191,17 @@ public class TLTimeLoggerActiity extends Activity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 2343243, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
-                + (1 * 1000), pendingIntent);
+                + (1 * 100), pendingIntent);
     }
 
     private void sendWarningNotification(String s)
     {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.mipmap.notification)
                         .setContentTitle("Time Logger")
-                        .setContentText(s);
+                        .setContentText(s)
+                        .setDefaults(Notification.DEFAULT_SOUND);
 
         NotificationManager mNotificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(1, mBuilder.build());
@@ -242,6 +252,6 @@ public class TLTimeLoggerActiity extends Activity {
     private long end_time;
     private int aid;
     private Date day;
-    private String pid="A53093508";
+    private String pid;
 
 }

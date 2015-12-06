@@ -1,9 +1,11 @@
 package com.software.timeline.timelogger;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.provider.SyncStateContract;
 import android.support.v4.app.NotificationCompat;
@@ -35,13 +37,14 @@ public class TLTimeLoggerService extends Service {
             Calendar c2 = Calendar.getInstance();
             Date endTime = c2.getTime();
             notifyIfTimeExceeded(pid, startTime, endTime);
-            handler.postDelayed(this, 30*60*1000);
+            handler.postDelayed(this, 1000);
         }
     };
+
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
-        handler.postDelayed(runnable, 30 * 60 * 1000);
+        handler.postDelayed(runnable, 1000);
     }
 
     private  void notifyIfTimeExceeded(final String PID, final Date begin_date, final Date final_date) {
@@ -93,13 +96,37 @@ public class TLTimeLoggerService extends Service {
                             }
                         }
                     }
-                    if ((aid_1 + aid_2 + aid_3 + aid_4 + aid_5 + aid_6 + aid_7) > (1000 * 60 * 60 * 24 * 10))    //exceeding 8 hours
+                    SharedPreferences preferences= getSharedPreferences(TLApp.USER_SHARED_PREFS, MODE_PRIVATE);
+                    String taType = preferences.getString("tatype", "");
+                    long warningTime, notificationTime;
+                    if (taType.indexOf("25") != -1)
                     {
-                        sendWarningNotification("Your have exceeded your allocated hours");
+                        warningTime = 8 * 1000;
+                        notificationTime = 10 * 1000;
                     }
-                    else if ((aid_1 + aid_2 + aid_3 + aid_4 + aid_5 + aid_6 + aid_7) > (1000 * 60 * 60 * 24 * 8))    //exceeding 8 hours
+                    else
                     {
-                        sendWarningNotification("Your are about to exceed your allocated hours");
+                        warningTime = 18 * 1000;
+                        notificationTime = 20 * 1000;
+                    }
+
+                    if ((aid_1 + aid_2 + aid_3 + aid_4 + aid_5 + aid_6 + aid_7) > (notificationTime))    //exceeding 8 hours
+                    {
+                        boolean notified = preferences.getBoolean("overtimeNotified", false);
+                        if (!notified)
+                            sendWarningNotification("Your have exceeded your allocated hours");
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean("overtimeNotified", true);
+                        editor.commit();
+                    }
+                    else if ((aid_1 + aid_2 + aid_3 + aid_4 + aid_5 + aid_6 + aid_7) > (warningTime))    //exceeding 8 hours
+                    {
+                        boolean notified = preferences.getBoolean("warningNotified", false);
+                        if (!notified)
+                            sendWarningNotification("Your are about to exceed your allocated hours");
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean("warningNotified", true);
+                        editor.commit();
                     }
                 } else {
                     Log.e(SyncStateContract.Constants.DATA, "Failure");
@@ -115,6 +142,7 @@ public class TLTimeLoggerService extends Service {
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("Time Logger")
+                        .setDefaults(Notification.DEFAULT_SOUND)
                         .setContentText(s);
 
         NotificationManager mNotificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
