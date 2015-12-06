@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import com.software.timeline.R;
 import com.software.timeline.misc.TLApp;
-import com.software.timeline.timelogger.TLTimeLoggerActiity;
 
 public class TLNotificationsActivity extends Activity {
 

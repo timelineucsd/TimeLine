@@ -10,7 +10,6 @@ import android.app.Activity;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,9 +23,7 @@ import com.software.timeline.graphicalsummary.TLGraphicalSummary;
 import com.software.timeline.login.TimeLineActivity;
 import com.software.timeline.misc.TLApp;
 import com.software.timeline.notifications.TLConfirmationReceiver;
-import com.software.timeline.notifications.TLNotificationsActivity;
 import com.software.timeline.signup.TLJobActivities;
-import com.software.timeline.signup.TLSignUpActivity;
 
 import java.util.Calendar;
 import java.util.Date;

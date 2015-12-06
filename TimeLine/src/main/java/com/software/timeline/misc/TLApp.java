@@ -2,14 +2,12 @@ package com.software.timeline.misc;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.provider.SyncStateContract;
 import android.util.Log;
 
 import com.parse.*;
 import com.software.timeline.database.TLParseDatabase;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 

@@ -13,13 +13,11 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.software.timeline.R;
-import com.software.timeline.database.TLParseDatabase;
 import com.software.timeline.misc.TLApp;
 
 import java.util.List;

@@ -1,47 +1,35 @@
 package com.software.timeline.graphicalsummary;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 
+import com.androidplot.xy.LineAndPointFormatter;
+import com.androidplot.xy.PointLabelFormatter;
+import com.androidplot.xy.SimpleXYSeries;
+import com.androidplot.xy.XYPlot;
+import com.androidplot.xy.XYSeries;
 import com.parse.FindCallback;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.software.timeline.R;
 import com.software.timeline.misc.TLApp;
 
+import java.text.FieldPosition;
+import java.text.Format;
+import java.text.ParsePosition;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.Menu;
-
-import com.androidplot.xy.LineAndPointFormatter;
-import com.androidplot.xy.PointLabelFormatter;
-import com.androidplot.xy.SimpleXYSeries;
-import com.androidplot.xy.XYPlot;
-import com.androidplot.xy.*;
-import com.androidplot.xy.XYSeries;
-import android.graphics.Color;
-
-import android.view.*;
-import java.text.*;
-import java.util.concurrent.*;
-import java.math.*;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class TLGraphicalSummary extends Activity{
 

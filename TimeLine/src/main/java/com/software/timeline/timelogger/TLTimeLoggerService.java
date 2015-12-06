@@ -18,7 +18,6 @@ import com.software.timeline.misc.TLApp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Handler;
 
 public class TLTimeLoggerService extends Service {
     public TLTimeLoggerService() {

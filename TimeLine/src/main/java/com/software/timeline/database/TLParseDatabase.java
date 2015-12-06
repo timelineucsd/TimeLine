@@ -1,11 +1,6 @@
 package com.software.timeline.database;
 
-import android.content.Intent;
-
 import com.parse.Parse;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.SaveCallback;
 import com.software.timeline.misc.TLApp;
 
 /**
