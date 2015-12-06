@@ -57,7 +57,7 @@ public class TLSignUpActivity extends Activity {
         {
             Toast.makeText(this, "Name, PID or Email can't be empty", Toast.LENGTH_SHORT).show();
         }
-        else if(!TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
+        else if(!TextUtils.isEmpty(email) && !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())
         {
             Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
         }
@@ -68,7 +68,7 @@ public class TLSignUpActivity extends Activity {
                 @Override
                 public void done(List<ParseObject> objects, ParseException e) {
                     if (!isFinishing()) {
-                        if (objects.size() == 0 || e.getCode() == ParseException.OBJECT_NOT_FOUND) {
+                        if (objects.size() == 0) {
                             addNewUser(name, PID, email, mSpinnerJobPercent.getSelectedItem().toString());
                         } else
                             Toast.makeText(TLSignUpActivity.this, "User already exists", Toast.LENGTH_SHORT).show();
