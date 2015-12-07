@@ -51,10 +51,19 @@ public class TLScheduledActivityEntry extends Activity {
         System.out.println("Shared Preferences" + all);
         username = (String) all.get("name");
         userPID = (String) all.get("pid");
-        clab = (Integer)all.get("count_lab");
-        coffice = (Integer)all.get("count_office");
-        cdiscussion = (Integer)all.get("count_discussion");
-        clecture = (Integer)all.get("count_lecture");
+        try {
+            clab = (Integer)all.get("count_lab");
+            coffice = (Integer)all.get("count_office");
+            cdiscussion = (Integer)all.get("count_discussion");
+            clecture = (Integer)all.get("count_lecture");
+        }
+        catch (Exception e)
+        {
+            clab = 0;
+            coffice = 0;
+            cdiscussion = 0;
+            clecture = 0;
+        }
 
         System.out.println("From shared preferences" + clab + " "+coffice +  " "+ cdiscussion+ " "+clecture);
         //Select activity
@@ -204,8 +213,7 @@ public class TLScheduledActivityEntry extends Activity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TLScheduledActivityEntry.this, TLTimeLoggerActiity.class);
-                startActivity(intent);
+                finish();
 
             }
         });

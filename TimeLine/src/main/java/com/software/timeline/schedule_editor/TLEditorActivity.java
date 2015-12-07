@@ -183,6 +183,7 @@ public class TLEditorActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "Activity updated.", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(TLEditorActivity.this,TLScheduleEditorActivity.class);
                     startActivity(intent);
+                    finish();
 
                 } else {
                     // Failure!
@@ -232,6 +233,7 @@ public class TLEditorActivity extends Activity {
                                     Toast.makeText(getApplicationContext(), "Activity deleted.", Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(TLEditorActivity.this,TLScheduleEditorActivity.class);
                                     startActivity(intent);
+                                    finish();
                                 } catch (ParseException e1) {
                                     e1.printStackTrace();
                                 }

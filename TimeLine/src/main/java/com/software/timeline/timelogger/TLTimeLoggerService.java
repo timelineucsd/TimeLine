@@ -123,11 +123,9 @@ public class TLTimeLoggerService extends Service {
                         warningTime = 18 * 1000;
                         notificationTime = 20 * 1000;
                     }
-                    Log.d("Prateek", "Time Passed:" + (aid_1 + aid_2 + aid_3 + aid_4 + aid_5 + aid_6 + aid_7) );
                     if ((aid_1 + aid_2 + aid_3 + aid_4 + aid_5 + aid_6 + aid_7) > (notificationTime))
                     {
                         boolean notified = preferences.getBoolean("overtimeNotified", false);
-                        Log.d("Notified:", notified + " " + notificationTime);
                         if (!notified)
                             sendWarningNotification("Your have exceeded your allocated hours");
                         SharedPreferences.Editor editor = preferences.edit();

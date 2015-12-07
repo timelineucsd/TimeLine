@@ -128,6 +128,7 @@ public class TLScheduleEditorActivity extends Activity{
                                 System.out.println(bundle);
                                 i.putExtras(bundle);
                                 startActivity(i);
+                                finish();
 
                             }
 
