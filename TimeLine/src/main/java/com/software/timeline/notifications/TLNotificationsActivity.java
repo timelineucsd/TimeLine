@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.software.timeline.R;
 import com.software.timeline.misc.TLApp;
+import com.software.timeline.timelogger.TLTimeLoggerActiity;
 
 public class TLNotificationsActivity extends Activity {
 
@@ -21,9 +22,11 @@ public class TLNotificationsActivity extends Activity {
             Toast.makeText(this, "Attending", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(this, "Not attending", Toast.LENGTH_SHORT).show();
-        Log.d("Prateek:", "entered notifications");
         TLApp.alert=1;
         TLApp.aid=1;
         TLApp.aid_count=1;
+        Intent timeLoggerIntent = new Intent(this, TLTimeLoggerActiity.class);
+        startActivity(timeLoggerIntent);
+        finish();
     }
 }

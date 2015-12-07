@@ -176,7 +176,7 @@ public class TLTimeLoggerActiity extends Activity {
     {
         Intent intent = new Intent(this, TLConfirmationReceiver.class);
         intent.putExtra("classNow", false);
-        intent.putExtra("activity", "Class");
+        intent.putExtra("activity", "Office Hours");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 234324243, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
@@ -187,7 +187,7 @@ public class TLTimeLoggerActiity extends Activity {
     {
         Intent intent = new Intent(this, TLConfirmationReceiver.class);
         intent.putExtra("classNow", true);
-        intent.putExtra("activity", "Class");
+        intent.putExtra("activity", "Office Hours");
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 2343243, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
