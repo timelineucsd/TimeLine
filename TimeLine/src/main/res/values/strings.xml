@@ -9,4 +9,6 @@
     <string name="title_activity_tlnotifications">TimeLine</string>
     <string name="title_activity_tlgraphical_summary">TimeLine</string>
     <string name="title_activity_tlsplash">TimeLine</string>
+    <string name="title_activity_scheduleEditor">ScheduleEditor</string>
+    <string name="title_activity_the_editor">Editor</string>
 </resources>

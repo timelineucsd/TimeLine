@@ -37,14 +37,19 @@ public class TLTimeLoggerService extends Service {
             Calendar c2 = Calendar.getInstance();
             Date endTime = c2.getTime();
             notifyIfTimeExceeded(pid, startTime, endTime);
-            handler.postDelayed(this, 1000);
+            handler.postDelayed(this, 100);
         }
     };
 
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
-        handler.postDelayed(runnable, 1000);
+        handler.postDelayed(runnable, 100);
+    }
+
+    private boolean isLoggedIn()
+    {
+        return getSharedPreferences(TLApp.USER_SHARED_PREFS, MODE_PRIVATE).getString("name", null) != null;
     }
 
     private  void notifyIfTimeExceeded(final String PID, final Date begin_date, final Date final_date) {
@@ -53,6 +58,8 @@ public class TLTimeLoggerService extends Service {
         query.whereEqualTo("pid", PID);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> objects, com.parse.ParseException e) {
+                if (!isLoggedIn())
+                    return;
                 if (e == null) {
                     System.out.println("Objects retrieved: " + objects.size());
                     aid_1 = 0;
@@ -120,6 +127,7 @@ public class TLTimeLoggerService extends Service {
                     if ((aid_1 + aid_2 + aid_3 + aid_4 + aid_5 + aid_6 + aid_7) > (notificationTime))
                     {
                         boolean notified = preferences.getBoolean("overtimeNotified", false);
+                        Log.d("Notified:", notified + " " + notificationTime);
                         if (!notified)
                             sendWarningNotification("Your have exceeded your allocated hours");
                         SharedPreferences.Editor editor = preferences.edit();

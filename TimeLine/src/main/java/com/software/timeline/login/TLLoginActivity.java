@@ -48,6 +48,8 @@ public class TLLoginActivity extends Activity {
         editor.putString("pid", pid);
         editor.putString("email", email);
         editor.putString("tatype", taType);
+        editor.putBoolean("overtimeNotified", false);
+        editor.putBoolean("warningNotified", false);
         editor.commit();
     }
 

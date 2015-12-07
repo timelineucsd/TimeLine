@@ -8,8 +8,10 @@ import android.util.Log;
 import com.parse.*;
 import com.software.timeline.database.TLParseDatabase;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by Prateek on 11/20/2015.
@@ -81,7 +83,14 @@ public class TLApp extends Application
                             System.out.println("conditions matched");
                             start_time=objects.get(i).getInt("startTime");
                             end_time=objects.get(i).getInt("endTime");
-                            day=objects.get(i).getDate("Day");
+                            start_time = (long)Math.ceil(start_time / (1.0*3600));
+                            end_time = (long)Math.ceil(end_time / (1.0*3600));
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+                            Calendar dt = Calendar.getInstance();
+                            dt.clear();
+                            dt.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
+                            day = dt.getTime();
                             System.out.println("Object startTime: " + start_time + " end time: " + end_time + " day: " + day);
                             addTimeLog(PID,aid,start_time,end_time,day);
                             break;

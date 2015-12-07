@@ -25,6 +25,8 @@ import com.software.timeline.graphicalsummary.TLGraphicalSummary;
 import com.software.timeline.login.TimeLineActivity;
 import com.software.timeline.misc.TLApp;
 import com.software.timeline.notifications.TLConfirmationReceiver;
+import com.software.timeline.schedule_editor.TLScheduleEditorActivity;
+import com.software.timeline.schedule_editor.TLScheduledActivityEntry;
 import com.software.timeline.signup.TLJobActivities;
 
 import java.util.Calendar;
@@ -72,12 +74,19 @@ public class TLTimeLoggerActiity extends Activity {
         {
             case R.id.menuLogout:
                 logoutUser();
+                break;
+
+            case R.id.menuscheduleadd:
+                Intent intent = new Intent(TLTimeLoggerActiity.this, TLScheduledActivityEntry.class);
+                startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void logoutUser()
     {
+        stopService(new Intent(this, TLTimeLoggerService.class));
         getSharedPreferences(TLApp.USER_SHARED_PREFS, MODE_PRIVATE).edit().clear().commit();
         Intent intent  = new Intent(this, TimeLineActivity.class);
         startActivity(intent);
@@ -113,7 +122,7 @@ public class TLTimeLoggerActiity extends Activity {
             mTimeElapsed = System.currentTimeMillis();
             start_time = mTimeElapsed;
             Calendar cal = Calendar.getInstance();
-            cal.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+            //cal.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
             Calendar dt = Calendar.getInstance();
             dt.clear();
             dt.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
@@ -157,9 +166,9 @@ public class TLTimeLoggerActiity extends Activity {
     }
 
     public void buttonEditScheduleClicked(View view) {
-        Intent intent = new Intent(this, TimeLineActivity.class);
+        Intent intent = new Intent(this, TLScheduleEditorActivity.class);
         startActivity(intent);
-        finish();
+
     }
 
     public void buttonGraphicalSummaryClicked(View view) {

@@ -19,6 +19,8 @@ import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.software.timeline.R;
 import com.software.timeline.misc.TLApp;
+import com.software.timeline.schedule_editor.TLScheduleEditorActivity;
+import com.software.timeline.schedule_editor.TLScheduledActivityEntry;
 
 import java.util.List;
 
@@ -93,8 +95,8 @@ public class TLSignUpActivity extends Activity {
                 {
                     Log.d("Prateek:", "Save successful");
                     addUserToSharedPrefs(name, PID, email, taType);
-                    setResult(RESULT_OK);
-                    finish();
+                    Intent intent = new Intent(TLSignUpActivity.this, TLScheduledActivityEntry.class);
+                    startActivityForResult(intent, 400);
                 }
             }
         });
@@ -107,19 +109,21 @@ public class TLSignUpActivity extends Activity {
         editor.putString("pid", pid);
         editor.putString("email", email);
         editor.putString("tatype", taType);
+        editor.putInt("count_lab", 0);
+        editor.putInt("count_office", 0);
+        editor.putInt("count_discussion", 0);
+        editor.putInt("count_lecture", 0);
+        editor.putInt("count_piazza", 0);
+        editor.putInt("count_email", 0);
+        editor.putInt("grading", 0);
         editor.commit();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode)
-        {
-            case RESULT_OK:
-                setResult(RESULT_OK);
-                finish();
-                break;
-        }
+        setResult(RESULT_OK);
+        finish();
     }
 
     private Spinner mSpinnerJobPercent;

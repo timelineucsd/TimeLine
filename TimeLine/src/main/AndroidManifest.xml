@@ -50,6 +50,18 @@
             android:name=".graphicalsummary.TLGraphicalSummary"
             android:label="@string/title_activity_tlnotifications" >
         </activity>
+        <activity
+            android:name=".schedule_editor.TLScheduleEditorActivity"
+            android:label="@string/title_activity_scheduleEditor" >
+        </activity>
+        <activity
+            android:name=".schedule_editor.TLEditorActivity"
+            android:label="@string/title_activity_the_editor" >
+        </activity>
+        <activity
+            android:name=".schedule_editor.TLScheduledActivityEntry"
+            android:label="@string/title_activity_the_editor" >
+        </activity>
 
         <service
             android:name=".timelogger.TLTimeLoggerService"

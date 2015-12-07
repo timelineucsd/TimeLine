@@ -22,8 +22,9 @@ public class TLNotificationsActivity extends Activity {
             Toast.makeText(this, "Attending", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(this, "Not attending", Toast.LENGTH_SHORT).show();
+        Log.d("Prateek", "in notification");
         TLApp.alert=1;
-        TLApp.aid=1;
+        TLApp.aid=3;
         TLApp.aid_count=1;
         Intent timeLoggerIntent = new Intent(this, TLTimeLoggerActiity.class);
         startActivity(timeLoggerIntent);
